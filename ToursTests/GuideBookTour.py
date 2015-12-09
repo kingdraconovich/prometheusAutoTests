@@ -9,8 +9,7 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 
-from ToursTests import *
-
+from BasicElements import *
 '''
 THE IDEA
 The guidebook tour stets the software’s ability to deliver its advertised functionality.
