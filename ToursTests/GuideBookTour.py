@@ -200,13 +200,25 @@ class GuideBookTest(unittest.TestCase):
             print("WARNING!!! WARNING!!!")
             print("Oops, seems that you already have submitted courses. Please enter manually with user and unsubscribe")
             subscribedCoursesList = driver.find_elements_by_xpath("//a[contains(@class, 'unenroll')]")
-                for subscribedCourse in subscribedCoursesList:
-                    subscribedCourse.click()
-                    driver.switch_to_window(driver.window_handles[-1])
+            print(subscribedCoursesList)
+
+            while len(subscribedCoursesList) > 0:
+                wait.until(lambda driver: subscribedCoursesList[0])
+                subscribedCoursesList[0].click()
+                time.sleep(3)
+                wait.until(lambda driver: driver.find_element_by_xpath("//div/input[contains(@value, 'Відписатись від курсу')]"))
+                time.sleep(2)
+                driver.find_element_by_xpath("//div/input[contains(@value, 'Відписатись від курсу')]").click()
+                time.sleep(2)
+                subscribedCoursesList = driver.find_elements_by_xpath("//a[contains(@class, 'unenroll')]")
+
+            findCoursesButton = driver.find_element_by_xpath("//section/a[@href='/courses']")
+            wait.until(lambda driver: findCoursesButton)
+            findCoursesButton.click()
 
 
-             # for WP web-interface the string current_url should be decoded to utf-8 in order to verification work properly
-        wait.until(lambda driver: driver.current_url.decode('utf-8') == "http://prometheus.org.ua/courses/")
+        # for WP web-interface the string current_url should be decoded to utf-8 in order to verification work properly
+        wait.until(lambda driver: driver.current_url.encode('utf-8') == "http://prometheus.org.ua/courses/")
 
         #verification for main categories: specializations, Available now, Registration open
         wait.until(lambda driver: driver.find_element_by_xpath("//h3[contains(., 'Цикли курсів')]"))
@@ -251,8 +263,6 @@ class GuideBookTest(unittest.TestCase):
         driver.switch_to_window(driver.window_handles[-1])
         wait.until(lambda driver: driver.current_url.encode('utf-8') == courseUrl.encode('utf-8'))
         time.sleep(2)
-
-        #===========================copy from here======================================================================
 
         courseRegisterButton = driver.find_element_by_class_name("register")
         wait.until(lambda driver: courseRegisterButton)
