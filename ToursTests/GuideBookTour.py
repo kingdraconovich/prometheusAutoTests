@@ -1,12 +1,15 @@
 # -*- coding: utf-8 -*-
-import unittest
-import time
+
 import random
+import time
+import unittest
+
 from selenium import webdriver
 from selenium.common.exceptions import NoSuchElementException
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import WebDriverWait
 
+from ToursTests import *
 
 '''
 THE IDEA
@@ -143,8 +146,7 @@ class GuideBookTest(unittest.TestCase):
         #  and note in down.
         #Later in our tests we will use only one pre-registered and email confirmed account
         #
-        print(emailStr)
-        print(usernameStr)
+
     '''
 
     def test_searchAndBrowseCourses(self):
@@ -163,31 +165,14 @@ class GuideBookTest(unittest.TestCase):
         usernameStr = self.usernameStr
         nameStr = self.nameStr
 
-        emailField = driver.find_element_by_id("email")
-        passwordField = driver.find_element_by_id("password")
-
-        wait.until(lambda driver: emailField)
-        wait.until(lambda driver: passwordField)
-        emailField.clear()
-        passwordField.clear()
-        emailField.send_keys(emailStr)
-        passwordField.send_keys(passwordStr)
-        driver.find_element_by_id("remember-yes").click()
-        driver.find_element_by_id("submit").click()
+        BasicActions.user_login(self, emailStr, passwordStr, driver)
 
         # waiting to enter Dashboard menu
         wait.until(lambda driver: driver.current_url == "http://courses.prometheus.org.ua/dashboard")
 
         # verification of key elements for dashboard menu
-        wait.until(lambda driver: driver.find_element_by_xpath("//a[contains(., " + usernameStr + ")]"))
-        wait.until(lambda driver: driver.find_element_by_xpath("//h1[contains(., " + usernameStr + ")]"))
-        wait.until(lambda driver: driver.find_element_by_xpath("//li/span[contains(., " + "'" + nameStr + "')]"))
-        wait.until(lambda driver: driver.find_element_by_xpath("//li/span[contains(., " + "'" + emailStr + "')]"))
-        wait.until(lambda driver: driver.find_element_by_id("pwd_reset_button"))
-        wait.until(lambda driver: driver.find_element_by_xpath(
-            "//span/a[contains(., 'редагувати') and @href='#apply_name_change']"))
-        wait.until(lambda driver: driver.find_element_by_xpath(
-            "//span/a[contains(., 'редагувати') and @href='#change_email']"))
+
+        Dashboard.verify_dashboard_elements(self, emailStr, usernameStr, nameStr, driver)
 
         # And let's explore couple of courses and decide what to learn
 
@@ -199,42 +184,21 @@ class GuideBookTest(unittest.TestCase):
 
         #if it's not empty then initiating clean-up script
         except(NoSuchElementException):
-            print("WARNING!!! WARNING!!!")
-            print("Oops, seems that you already have submitted courses. Please enter manually with user and unsubscribe")
-
-            subscribedCoursesList = driver.find_elements_by_xpath("//a[contains(@class, 'unenroll')]")
-
-            while len(subscribedCoursesList) > 0:
-                wait.until(lambda driver: subscribedCoursesList[0])
-                subscribedCoursesList[0].click()
-                time.sleep(3)
-                wait.until(lambda driver: driver.find_element_by_xpath("//div/input[contains(@value, 'Відписатись від курсу')]"))
-                time.sleep(2)
-                driver.find_element_by_xpath("//div/input[contains(@value, 'Відписатись від курсу')]").click()
-                time.sleep(2)
-                subscribedCoursesList = driver.find_elements_by_xpath("//a[contains(@class, 'unenroll')]")
-
+            Dashboard.dashboard_cleanup(self, driver)
             findCoursesButton = driver.find_element_by_xpath("//section/a[@href='/courses']")
             wait.until(lambda driver: findCoursesButton)
             findCoursesButton.click()
 
 
-        # for WP web-interface the string current_url should be decoded to utf-8 in order to verification work properly
-        wait.until(lambda driver: driver.current_url.encode('utf-8') == "http://prometheus.org.ua/courses/")
-
-        #verification for main categories: specializations, Available now, Registration open
-        wait.until(lambda driver: driver.find_element_by_xpath("//h3[contains(., 'Цикли курсів')]"))
-        wait.until(lambda driver: driver.find_element_by_xpath("//h3[contains(., 'Доступні зараз')]"))
-        wait.until(lambda driver: driver.find_element_by_xpath("//h3[contains(., 'Відкрито реєстрацію')]"))
+        Courses.verify_courses_elements(self, driver)
 
         civEduButton = driver.find_element_by_xpath("//div/a[@href='http://prometheus.org.ua/civileducation/']")
         wait.until(lambda driver: civEduButton)
         civEduButton.click()
-
-
         driver.switch_to_window(driver.window_handles[-1])
 
         #short checkout on specialization page
+        # for WP web-interface the string current_url should be decoded to utf-8 in order to verification work properly
         wait.until(lambda driver: driver.current_url == "http://prometheus.org.ua/civileducation/".decode('utf-8'))
         titleElement = driver.find_element_by_tag_name('h1')
         assert titleElement.text == "Громадянська освіта".decode('utf-8')
@@ -244,10 +208,9 @@ class GuideBookTest(unittest.TestCase):
         driver.switch_to_window(driver.window_handles[0])
 
         #Choosing some random course to attend
-        coursesList = driver.find_elements_by_xpath("//div/a[contains(@href, 'http://courses.') or  contains(@href, 'http://edx.')]")
-        singleCourseButton = coursesList[random.randint(0, len(coursesList))-1]
-        singleCourseButton.click()
+        singleCourseButton = Courses.get_random_course_button(self, driver)
         courseUrl = singleCourseButton.get_attribute("href")
+        singleCourseButton.click()
 
 
         #some courses are leading to edx. subdomain and others are leading to cources. subdomain. At the first case
@@ -256,38 +219,15 @@ class GuideBookTest(unittest.TestCase):
         # mismatching string(courseUrl) to be matched as courses. subdomain instance
 
         if "edx" in courseUrl.encode('utf-8'):
-            editedCourseUrl = "http://courses"+courseUrl.encode('utf-8')[10:]
-            print("WARNING: Issue with subdomains!")
-            print("Initial string: " + courseUrl.encode('utf-8'))
-            print("Edited string: " + editedCourseUrl)
-            courseUrl = editedCourseUrl
-
+            courseUrl = BasicActions.convert_subdomains(self, courseUrl)
 
         driver.switch_to_window(driver.window_handles[-1])
         wait.until(lambda driver: driver.current_url.encode('utf-8') == courseUrl.encode('utf-8'))
 
         #submitting under the course
-        courseRegisterButton = driver.find_element_by_class_name("register")
-        wait.until(lambda driver: courseRegisterButton)
-        courseRegisterButton.click()
-        time.sleep(1) #mandatory sleep to give page time to reload
-        coursesDashboardUrl = "http://courses.prometheus.org.ua/dashboard".encode('utf-8')
+        Courses.submit_course(self, driver)
 
-
-
-        #checking if it is a pre-paid course and choosing free course submission option
-        if driver.current_url.encode('utf-8') == coursesDashboardUrl:
-
-            wait.until(lambda driver: driver.current_url.encode('utf-8') == coursesDashboardUrl)
-
-        elif 'course_modes' in driver.current_url.encode('utf-8'):
-            submitInHonorModeButton = driver.find_element_by_xpath("//input[contains(@type, 'submit') and contains(@name, 'honor_mode')]")
-            wait.until(lambda driver: submitInHonorModeButton)
-            submitInHonorModeButton.click()
-            wait.until(lambda driver: driver.current_url.encode('utf-8') == coursesDashboardUrl)
-
-
-        time.sleep(5)
+        time.sleep(2)
 
     def tearDown(self):
         self.driver.quit()
