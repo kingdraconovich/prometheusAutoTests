@@ -204,7 +204,6 @@ class GuideBookTest(unittest.TestCase):
                     subscribedCourse.click()
                     driver.switch_to_window(driver.window_handles[-1])
 
-            print(subscribedCoursesList)
 
              # for WP web-interface the string current_url should be decoded to utf-8 in order to verification work properly
         wait.until(lambda driver: driver.current_url.decode('utf-8') == "http://prometheus.org.ua/courses/")
