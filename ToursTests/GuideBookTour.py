@@ -191,16 +191,18 @@ class GuideBookTest(unittest.TestCase):
 
         # And let's explore couple of courses and decide what to learn
 
+        #checking for empty dashboard
         try:
             findCoursesButton = driver.find_element_by_xpath("//section/a[@href='/courses']")
             wait.until(lambda driver: findCoursesButton)
             findCoursesButton.click()
 
+        #if it's not empty then initiating clean-up script
         except(NoSuchElementException):
             print("WARNING!!! WARNING!!!")
             print("Oops, seems that you already have submitted courses. Please enter manually with user and unsubscribe")
+
             subscribedCoursesList = driver.find_elements_by_xpath("//a[contains(@class, 'unenroll')]")
-            print(subscribedCoursesList)
 
             while len(subscribedCoursesList) > 0:
                 wait.until(lambda driver: subscribedCoursesList[0])
@@ -247,6 +249,7 @@ class GuideBookTest(unittest.TestCase):
         singleCourseButton.click()
         courseUrl = singleCourseButton.get_attribute("href")
 
+
         #some courses are leading to edx. subdomain and others are leading to cources. subdomain. At the first case
         # browser anyway redirects user to .courses subdomain but we are unable to verify that we are leading to desired
         # page: driver.current_url is courses... but courseUrl is edx... To fix this issue we are editing the
@@ -262,24 +265,29 @@ class GuideBookTest(unittest.TestCase):
 
         driver.switch_to_window(driver.window_handles[-1])
         wait.until(lambda driver: driver.current_url.encode('utf-8') == courseUrl.encode('utf-8'))
-        time.sleep(2)
 
+        #submitting under the course
         courseRegisterButton = driver.find_element_by_class_name("register")
         wait.until(lambda driver: courseRegisterButton)
         courseRegisterButton.click()
-
+        time.sleep(1) #mandatory sleep to give page time to reload
         coursesDashboardUrl = "http://courses.prometheus.org.ua/dashboard".encode('utf-8')
 
-        if driver.current_url.encode('utf-8') != coursesDashboardUrl:
 
-            wait.until(lambda driver: driver.current_url.encode('utf-8')[32:-5] == courseUrl[32:-5])
 
-        else:
+        #checking if it is a pre-paid course and choosing free course submission option
+        if driver.current_url.encode('utf-8') == coursesDashboardUrl:
+
+            wait.until(lambda driver: driver.current_url.encode('utf-8') == coursesDashboardUrl)
+
+        elif 'course_modes' in driver.current_url.encode('utf-8'):
+            submitInHonorModeButton = driver.find_element_by_xpath("//input[contains(@type, 'submit') and contains(@name, 'honor_mode')]")
+            wait.until(lambda driver: submitInHonorModeButton)
+            submitInHonorModeButton.click()
             wait.until(lambda driver: driver.current_url.encode('utf-8') == coursesDashboardUrl)
 
 
         time.sleep(5)
-
 
     def tearDown(self):
         self.driver.quit()
