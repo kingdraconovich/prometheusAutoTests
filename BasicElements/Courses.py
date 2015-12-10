@@ -22,29 +22,29 @@ def verify_courses_elements(self, driver):
 
 # method to attend a random course
 def get_random_course_button(self, driver):
-    # wait.until(lambda driver: driver.current_url.encode('utf-8') == "http://prometheus.org.ua/courses/")
-    coursesList = driver.find_elements_by_xpath(
-        "//div/a[contains(@href, 'http://courses.') or  contains(@href, 'http://edx.')]")
-    randomCourseButton = coursesList[random.randint(0, len(coursesList)) - 1]
+    self.wait.until(lambda driver: driver.current_url.encode('utf-8') == "http://prometheus.org.ua/courses/")
+    coursesList = driver.find_elements_by_xpath("//div/a[contains(@href, 'http://courses.') or  contains(@href, 'http://edx.')]")
+    randomCourseButton = coursesList[random.randint(0, (len(coursesList)-1))]
     return randomCourseButton
 
 
 # method for course submission
 def submit_course(self, driver):
-    wait = self.wait
 
-    courseRegisterButton = driver.find_element_by_class_name("register")
-    wait.until(lambda driver: courseRegisterButton)
+
+    #courseRegisterButton = driver.find_element_by_xpath("//div/a[contains(@class, 'register')]")
+    self.wait.until(lambda driver: driver.find_element_by_xpath("//a[contains(@class, 'register') and contains(@href, '#')]"))
+    courseRegisterButton = driver.find_element_by_xpath("//a[contains(@class, 'register') and contains(@href, '#')]")
     courseRegisterButton.click()
     time.sleep(1)  # mandatory sleep to give page time to reload
     coursesDashboardUrl = "http://courses.prometheus.org.ua/dashboard".encode('utf-8')
     # checking if it is a pre-paid course and choosing free course submission option
     if driver.current_url.encode('utf-8') == coursesDashboardUrl:
-        wait.until(lambda driver: driver.current_url.encode('utf-8') == coursesDashboardUrl)
+        self.wait.until(lambda driver: driver.current_url.encode('utf-8') == coursesDashboardUrl)
 
     elif 'course_modes' in driver.current_url.encode('utf-8'):
         submitInHonorModeButton = driver.find_element_by_xpath(
             "//input[contains(@type, 'submit') and contains(@name, 'honor_mode')]")
-        wait.until(lambda driver: submitInHonorModeButton)
+        self.wait.until(lambda driver: submitInHonorModeButton)
         submitInHonorModeButton.click()
-        wait.until(lambda driver: driver.current_url.encode('utf-8') == coursesDashboardUrl)
+        self.wait.until(lambda driver: driver.current_url.encode('utf-8') == coursesDashboardUrl)

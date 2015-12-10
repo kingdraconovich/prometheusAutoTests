@@ -34,25 +34,31 @@ def convert_subdomains(courseUrl):
     print("WARNING: Issue with subdomains!")
     print("Initial string: " + courseUrl.encode('utf-8'))
     print("Edited string: " + editedCourseUrl)
-    courseUrl = editedCourseUrl
+    courseUrl = editedCourseUrl.encode('utf-8')
     return courseUrl
 
 
 class Registration:
-    randomID = str(random.randint(1, 1000))
-    emailStr = "test_email" + randomID + "@gmail.com"
-    passwordStr = "test"
-    nameStr = "Test Test"
-    usernameStr = "autoTester" + randomID
 
-    # Values for drop-down lists
-    educationChoice = "Немає"
-    genderChoice = "Інше"
-    yobChoice = "1949"
+    def __init__(self, driver, courseId, emailStr, passwordStr, nameStr, usernameStr, educationChoice, genderChoice, yobChoice, mailingAdressStr, goalsStr):
+        self.driver = driver
+        self.wait = WebDriverWait(self.driver, 10)
 
-    # Values for text areas
-    mailingAdressStr = "Somewhere, over the rainbow"
-    goalsStr = "I am just a little robot, trying to test your site"
+        self.ID = courseId
+        self.emailStr = emailStr
+        self.passwordStr = passwordStr
+        self.nameStr = nameStr
+        self.usernameStr = usernameStr
+
+        # Values for drop-down lists
+        self.educationChoice = educationChoice
+        self.genderChoice = genderChoice
+        self.yobChoice = yobChoice
+
+        # Values for text areas
+        self.mailingAdressStr = mailingAdressStr
+        self.goalsStr = goalsStr
+
 
     def verify_and_register(self):
         driver = self.driver
@@ -62,79 +68,80 @@ class Registration:
         wait.until(lambda driver: registerButton)
         driver.get("http://edx.prometheus.org.ua/register")
 
-    def enter_email(self, emailStr):
+    def enter_email(self):
         emailField = self.driver.find_element_by_xpath("//li/input[@id='email']")
         self.wait.until(lambda driver: emailField)
-        self.emailField.clear()
-        self.emailField.send_keys(emailStr)
-        time.sleep(1)
+        emailField.clear()
+        emailField.send_keys(self.emailStr)
+        #time.sleep(1)
 
-    def enter_name(self, nameStr):
+    def enter_name(self):
         nameField = self.driver.find_element_by_xpath("//li/input[@id='name']")
         self.wait.until(lambda driver: nameField)
-        self.nameField.clear()
-        self.nameField.send_keys(nameStr)
-        time.sleep(1)
+        nameField.clear()
+        nameField.send_keys(self.nameStr)
+        #time.sleep(1)
 
-    def enter_username(self, usernameStr):
-        usernameField = webdriver.find_element_by_xpath("//li/input[@id='username']")
+    def enter_username(self):
+        usernameField = self.driver.find_element_by_xpath("//li/input[@id='username']")
         self.wait.until(lambda driver: usernameField)
-        self.usernameField.clear()
-        self.usernameField.send_keys(usernameStr)
-        time.sleep(1)
+        usernameField.clear()
+        usernameField.send_keys(self.usernameStr)
+        #time.sleep(1)
 
-    def enter_password(self, passwordStr):
+    def enter_password(self):
         passwordField = self.driver.find_element_by_xpath("//li/input[@id='password']")
         self.wait.until(lambda driver: passwordField)
-        self.passwordField.clear()
-        self.passwordField.send_keys(passwordStr)
-        time.sleep(1)
+        passwordField.clear()
+        passwordField.send_keys(self.passwordStr)
+        #time.sleep(1)
 
     def fill_education_list(self):
         educationDDList = self.driver.find_element_by_xpath("//li/div/select[@id='education-level']")
         self.wait.until(lambda driver: educationDDList)
-        Select(self.educationDDList).select_by_visible_text(self.educationChoice)
-        time.sleep(1)
+        Select(educationDDList).select_by_visible_text(self.educationChoice)
+        #time.sleep(1)
 
     def fill_gender_list(self):
         genderDDList = self.driver.find_element_by_xpath("//li/div/select[@id='gender']")
         self.wait.until(lambda driver: genderDDList)
-        Select(self.genderDDList).select_by_visible_text(self.genderChoice)
-        time.sleep(1)
+        Select(genderDDList).select_by_visible_text(self.genderChoice)
+        #time.sleep(1)
 
     def fill_birth_year_list(self):
         yobDDList = self.driver.find_element_by_xpath("//li/div/select[@id='yob']")
         self.wait.until(lambda driver: yobDDList)
-        Select(self.yobDDList).select_by_visible_text(self.yobChoice)
-        time.sleep(1)
+        Select(yobDDList).select_by_visible_text(self.yobChoice)
+        #time.sleep(1)
 
-    def fill_mailing_adress_area(self, mailingAdressStr):
+    def fill_mailing_adress_area(self):
         mailingAdressField = self.driver.find_element_by_xpath("//ol/li/textarea[@id='address-mailing']")
         self.wait.until(lambda driver: mailingAdressField)
-        self.mailingAdressField.clear()
-        self.mailingAdressField.send_keys(mailingAdressStr)
-        time.sleep(1)
+        mailingAdressField.clear()
+        mailingAdressField.send_keys(self.mailingAdressStr)
+        #time.sleep(1)
 
-    def fill_goals_area(self, goalsStr):
+    def fill_goals_area(self):
         goalsAreaField = self.driver.find_element_by_xpath("//ol/li/textarea[@id='goals']")
         self.wait.until(lambda driver: goalsAreaField)
-        self.goalsAreaField.clear()
-        self.goalsAreaField.send_keys(goalsStr)
-        time.sleep(1)
+        goalsAreaField.clear()
+        goalsAreaField.send_keys(self.goalsStr)
+        #time.sleep(1)
 
     def check_terms_of_service_box(self):
         termsOfServiceBox = self.driver.find_element_by_xpath("//div/input[@id='tos-yes']")
         self.wait.until(lambda driver: termsOfServiceBox)
-        self.termsOfServiceBox.click()
-        time.sleep(1)
+        termsOfServiceBox.click()
+        #time.sleep(1)
 
     def check_honor_code_box(self):
         honorCodeBox = self.driver.find_element_by_xpath("//div/input[@id='honorcode-yes']")
         self.wait.until(lambda driver: honorCodeBox)
-        self.honorCodeBox.click()
-        time.sleep(1)
+        honorCodeBox.click()
+        #time.sleep(1)
 
     def registration_submit(self):
         submitButton = self.driver.find_element_by_xpath("//div/button[@id='submit']")
         self.wait.until(lambda driver: submitButton)
-        self.submitButton.click()
+        submitButton.click()
+        time.sleep(1)
