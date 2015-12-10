@@ -5,7 +5,8 @@ import time
 import unittest
 
 from selenium import webdriver
-from selenium.common.exceptions import NoSuchElementException, TimeoutException
+from selenium.common.exceptions import NoSuchElementException, TimeoutException, WebDriverException, \
+    NoSuchWindowException
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
 
@@ -51,6 +52,7 @@ class GuideBookTest(unittest.TestCase):
         course_registration.fill_goals_area()
         course_registration.check_honor_code_box()
         course_registration.check_terms_of_service_box()
+
         #commented this strings in order to prevent cloning of test users
         #course_registration.registration_submit()
 
@@ -75,8 +77,6 @@ class GuideBookTest(unittest.TestCase):
         nameStr = self.nameStr
 
         BasicActions.user_login(self, emailStr, passwordStr, driver)
-
-
 
         # waiting to enter Dashboard menu
         wait.until(lambda driver: driver.current_url == "http://courses.prometheus.org.ua/dashboard")
@@ -106,22 +106,25 @@ class GuideBookTest(unittest.TestCase):
             wait.until(lambda driver: civEduButton)
             civEduButton.click()
             driver.switch_to_window(driver.window_handles[-1])
-            time.sleep(1)
 
             # short checkout on specialization page
             # for WP web-interface the string current_url should be decoded to utf-8 in order to verification work properly
-            wait.until(lambda driver: driver.current_url == "http://prometheus.org.ua/civileducation/".decode('utf-8'))
-            titleElement = driver.find_element_by_tag_name('h1')
-            assert titleElement.text == "Громадянська освіта".decode('utf-8')
 
             # closing specialization tab and proceeding with cources page
-            driver.find_element_by_tag_name('body').send_keys(Keys.CONTROL + 'w')
-            driver.switch_to_window(driver.window_handles[0])
+            if len(driver.window_handles) > 1:
+                driver.switch_to_window(driver.window_handles[-1])
+                driver.find_element_by_tag_name('body').send_keys(Keys.CONTROL + 'w')
+                try:
+                    driver.switch_to_window(driver.window_handles[0])
+                except(NoSuchWindowException):
+                    pass
 
             # Choosing some random course to attend
+            driver.switch_to_window(driver.window_handles[-1])
             singleCourseButton = Courses.get_random_course_button(self, driver)
+
             courseUrl = singleCourseButton.get_attribute("href")
-            time.sleep(2)
+            time.sleep(1)
             singleCourseButton.click()
 
             # some courses are leading to edx. subdomain and others are leading to cources. subdomain. At the first case
@@ -131,14 +134,15 @@ class GuideBookTest(unittest.TestCase):
 
             if "edx" in courseUrl.encode('utf-8'):
                 courseUrl = BasicActions.convert_subdomains(courseUrl)
+            else:
+                courseUrl = courseUrl
             driver.switch_to_window(driver.window_handles[-1])
-
             try:
                 wait.until(lambda driver: driver.current_url.encode('utf-8') == courseUrl.encode('utf-8'))
             except(TimeoutException):
-                print(courseUrl)
-                print(driver.current_url.encode('utf-8'))
-                print(courseUrl.encode('utf-8'))
+                driver.switch_to_window(driver.window_handles[-1])
+                wait.until(lambda driver: driver.current_url.encode('utf-8') == courseUrl.encode('utf-8'))
+                pass
 
             # submitting under the course
             Courses.submit_course(self, driver)

@@ -34,7 +34,7 @@ def convert_subdomains(courseUrl):
     print("WARNING: Issue with subdomains!")
     print("Initial string: " + courseUrl.encode('utf-8'))
     print("Edited string: " + editedCourseUrl)
-    courseUrl = editedCourseUrl.encode('utf-8')
+    courseUrl = editedCourseUrl.decode('unicode_escape')
     return courseUrl
 
 
