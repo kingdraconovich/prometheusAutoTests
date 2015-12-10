@@ -55,7 +55,6 @@ class GuideBookTest(unittest.TestCase):
 
         #commented this strings in order to prevent cloning of test users
         #course_registration.registration_submit()
-
         #wait.until(lambda driver: driver.current_url == "http://courses.prometheus.org.ua/dashboard")
         #assert driver.current_url.encode('utf-8') == "http://courses.prometheus.org.ua/dashboard"
 
@@ -82,7 +81,7 @@ class GuideBookTest(unittest.TestCase):
         wait.until(lambda driver: driver.current_url == "http://courses.prometheus.org.ua/dashboard")
 
         # verification of key elements for dashboard menu
-        for i in range(0,10,1):
+        for i in range(0,9,1):
             Dashboard.verify_dashboard_elements(self, emailStr, usernameStr, nameStr, driver)
 
             # And let's explore couple of courses and decide what to learn
