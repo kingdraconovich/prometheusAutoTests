@@ -21,4 +21,4 @@ class MainPageLocators(object):
     #Mid page elements locators
     MAIN_TEXT = (By.XPATH, "//div[contains(., 'Найкраща освіта для кожного') and contains(@data-ease, 'easeOutQuint')]")
     DESCRIPTION_TEXT = (By.XPATH, "//div[contains(., 'Безкоштовні онлайн-курси від викладачів КНУ, КПІ та Києво-Могилянської академії') and contains(@data-ease, 'easeOutQuint')]")
-    #FINDOUT_BUTTON = (By.XPATH, )
+    ##FINDOUT_BUTTON = (By.XPATH, )
