@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from selenium.webdriver.support.wait import WebDriverWait
 
-from element import BasePageElement
+from element import *
 from locators import *
 
 
@@ -117,6 +117,35 @@ class LoginPage(BasePage):
 
     def is_invalid_credentials_alert_visible(self):
         return self.driver.find_element(*LoginPageLocators.ALERT_INVALID_USER).is_displayed()
+
+
+class NameElement(BasePageElement):
+    locator = '//input[@id="name"]'
+
+
+class UsernameElement(BasePageElement):
+    locator = '//input[@id="username"]'
+
+
+class MailingAdressElement(BasePageElement):
+    locator = '//textarea[@id="adress-mailing"]'
+
+class GoalsArea(BasePageElement):
+    locator = '//textarea[@id="goals"]'
+
+class EducationSelect(BaseSelectElement):
+    pass # thats where I stopped in realization
+
+
+class RegistrationPage(BasePage):
+    url = "http://courses.prometheus.org.ua/register"
+
+    email_element = EmailElement()
+    password_element = PasswordElement()
+    name_element = NameElement()
+    username_element = UsernameElement()
+    mailing_adress_area = MailingAdressElement()
+    goals_area = GoalsArea()
 
 
 class DashboardPage(BasePage):

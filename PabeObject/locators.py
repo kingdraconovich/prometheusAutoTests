@@ -39,3 +39,14 @@ class LoginPageLocators():
     PASSWORD_FIELD = (By.XPATH, "//input[@id='password']")
     SUBMIT_BUTTON = (By.XPATH, "//button[@id='submit']")
     ALERT_INVALID_USER = (By.XPATH, "//div[contains(@class, 'submission-error')]")
+
+class RegistrationPageLocators():
+    EMAIL_FIELD = (By.XPATH, "//input[@id='email']")
+    PASSWORD_FIELD = (By.XPATH, "//input[@id='password']")
+    NAME_FIELD = (By.XPATH, '//input[@id="name"]')
+    USERNAME_FIELD = (By.XPATH, '//input[@id="username"]')
+    ADRESS_TEXT_AREA = (By.XPATH, '//textarea[@id="adress-mailing"]')
+    GOALS_TEXT_AREA = (By.XPATH, '//textarea[@id="goals"]')
+    EDUCATION_LEVEL_SELECT = (By.XPATH, "//select[@id='education-level']")
+    GENDER_LEVEL_SELECT = (By.XPATH, "//li/div/select[@id='gender']")
+    YEAR_OF_BIRTH_SELECT = (By.XPATH, "//li/div/select[@id='yob']")
