@@ -43,7 +43,7 @@ class T02LoginTests(unittest.TestCase):
         login_page.email_element = 'invalid_user@gmail.com'
         login_page.password_element = 'password'
         login_page.click_on_submit_button()
-        time.sleep(1)
+        time.sleep(1.7)
         assert (
             self.driver.current_url.encode(
                 'utf-8') == login_page.url), "User is logged with not pre-registered credentials"
