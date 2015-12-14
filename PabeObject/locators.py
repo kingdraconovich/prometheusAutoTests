@@ -44,7 +44,7 @@ class RegistrationPageLocators():
     PASSWORD_FIELD = (By.XPATH, "//input[@id='password']")
     NAME_FIELD = (By.XPATH, "//input[@id='name']")
     USERNAME_FIELD = (By.XPATH, "//input[@id='username']")
-    ADRESS_TEXT_AREA = (By.XPATH, "//ol/li/textarea[@id='adress-mailing']")
+    ADDRESS_TEXT_AREA = (By.XPATH, "//ol/li/textarea[@id='address-mailing']")
     GOALS_TEXT_AREA = (By.XPATH, "//ol/li/textarea[@id='goals']")
     EDUCATION_LEVEL_SELECT = (By.XPATH, "//select[@id='education-level']")
     GENDER_LEVEL_SELECT = (By.XPATH, "//select[@id='gender']")

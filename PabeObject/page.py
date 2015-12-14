@@ -179,7 +179,7 @@ class RegistrationPage(BasePage):
         return self.driver.find_element(*RegistrationPageLocators.YEAR_OF_BIRTH_SELECT).is_displayed()
 
     def is_mailing_adress_area_visible(self):
-        return self.driver.find_element(*RegistrationPageLocators.ADRESS_TEXT_AREA).is_displayed()
+        return self.driver.find_element(*RegistrationPageLocators.ADDRESS_TEXT_AREA).is_displayed()
 
     def is_goals_area_visible(self):
         return self.driver.find_element(*RegistrationPageLocators.GOALS_TEXT_AREA).is_displayed()
@@ -206,6 +206,7 @@ class RegistrationPage(BasePage):
         assert self.is_terms_of_service_checkbox_visible()
         assert self.is_honor_code_checkbox_visible()
         assert self.is_submit_button_visible()
+        return True
 
 
 class DashboardPage(BasePage):
