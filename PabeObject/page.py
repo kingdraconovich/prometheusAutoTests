@@ -25,9 +25,6 @@ class MainPage(BasePage):
 
     url = "http://prometheus.org.ua"
 
-    def get_main_page(self):
-        self.driver.get(self.url)
-
     def is_title_matches(self):
         title = "Prometheus – масові безкоштовні онлайн-курси"
         return (title in self.driver.title.encode('utf-8'))
@@ -109,7 +106,7 @@ class LoginPage(BasePage):
     def is_submit_button_visible(self):
         return self.driver.find_element(*LoginPageLocators.SUBMIT_BUTTON).is_displayed()
 
-    def click_on_remember_button(self):
+    def click_on_remember_me_checkbox(self):
         self.driver.find_element(*LoginPageLocators.REMEMBER_ME_CHECKBOX).click()
 
     def click_on_submit_button(self):
@@ -127,25 +124,88 @@ class UsernameElement(BasePageElement):
     locator = '//input[@id="username"]'
 
 
+class EducationElement(BaseSelectElement):
+    locator = "//select[@id='education-level']"
+
+
+class GenderElement(BaseSelectElement):
+    locator = "//select[@id='gender']"
+
+
+class BirthYearlement(BaseSelectElement):
+    locator = "//select[@id='yob']"
+
+
 class MailingAdressElement(BasePageElement):
     locator = '//textarea[@id="adress-mailing"]'
 
+
 class GoalsArea(BasePageElement):
     locator = '//textarea[@id="goals"]'
-
-class EducationSelect(BaseSelectElement):
-    pass # thats where I stopped in realization
 
 
 class RegistrationPage(BasePage):
     url = "http://courses.prometheus.org.ua/register"
 
     email_element = EmailElement()
-    password_element = PasswordElement()
     name_element = NameElement()
     username_element = UsernameElement()
+    password_element = PasswordElement()
+    education_element = EducationElement()
+    gender_element = GenderElement()
+    birth_year_element = BirthYearlement()
     mailing_adress_area = MailingAdressElement()
     goals_area = GoalsArea()
+
+    def is_email_element_visible(self):
+        return self.driver.find_element(*RegistrationPageLocators.EMAIL_FIELD).is_displayed()
+
+    def is_name_element_visible(self):
+        return self.driver.find_element(*RegistrationPageLocators.NAME_FIELD).is_displayed()
+
+    def is_username_element_visible(self):
+        return self.driver.find_element(*RegistrationPageLocators.USERNAME_FIELD).is_displayed()
+
+    def is_password_element_visible(self):
+        return self.driver.find_element(*RegistrationPageLocators.PASSWORD_FIELD).is_displayed()
+
+    def is_education_element_visible(self):
+        return self.driver.find_element(*RegistrationPageLocators.EDUCATION_LEVEL_SELECT).is_displayed()
+
+    def is_gender_element_visible(self):
+        return self.driver.find_element(*RegistrationPageLocators.GENDER_LEVEL_SELECT).is_displayed()
+
+    def is_birth_year_element_visible(self):
+        return self.driver.find_element(*RegistrationPageLocators.YEAR_OF_BIRTH_SELECT).is_displayed()
+
+    def is_mailing_adress_area_visible(self):
+        return self.driver.find_element(*RegistrationPageLocators.ADRESS_TEXT_AREA).is_displayed()
+
+    def is_goals_area_visible(self):
+        return self.driver.find_element(*RegistrationPageLocators.GOALS_TEXT_AREA).is_displayed()
+
+    def is_terms_of_service_checkbox_visible(self):
+        return self.driver.find_element(*RegistrationPageLocators.TERMS_OF_SERVICE_CHECKBOX).is_displayed()
+
+    def is_honor_code_checkbox_visible(self):
+        return self.driver.find_element(*RegistrationPageLocators.HONOR_CODE_CHECKBPOX).is_displayed()
+
+    def is_submit_button_visible(self):
+        return self.driver.find_element(*RegistrationPageLocators.SUBMIT_BUTTON).is_displayed()
+
+    def is_registration_page_elements_visible(self):
+        assert self.is_email_element_visible()
+        assert self.is_name_element_visible()
+        assert self.is_username_element_visible()
+        assert self.is_password_element_visible()
+        assert self.is_education_element_visible()
+        assert self.is_gender_element_visible()
+        assert self.is_birth_year_element_visible()
+        assert self.is_mailing_adress_area_visible()
+        assert self.is_goals_area_visible()
+        assert self.is_terms_of_service_checkbox_visible()
+        assert self.is_honor_code_checkbox_visible()
+        assert self.is_submit_button_visible()
 
 
 class DashboardPage(BasePage):

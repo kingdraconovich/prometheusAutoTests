@@ -33,7 +33,6 @@ class MainPageLocators(object):
     START_BUTTON = (By.XPATH, "//div/a[contains(@href, 'http://edx.prometheus.org.ua/register')]/ancestor::div[1]")
 
 class LoginPageLocators():
-    #Login page elements locators
     REMEMBER_ME_CHECKBOX = (By.XPATH, "//input[@id='remember-yes']")
     EMAIL_FIELD = (By.XPATH, "//input[@id='email']")
     PASSWORD_FIELD = (By.XPATH, "//input[@id='password']")
@@ -43,10 +42,13 @@ class LoginPageLocators():
 class RegistrationPageLocators():
     EMAIL_FIELD = (By.XPATH, "//input[@id='email']")
     PASSWORD_FIELD = (By.XPATH, "//input[@id='password']")
-    NAME_FIELD = (By.XPATH, '//input[@id="name"]')
-    USERNAME_FIELD = (By.XPATH, '//input[@id="username"]')
-    ADRESS_TEXT_AREA = (By.XPATH, '//textarea[@id="adress-mailing"]')
-    GOALS_TEXT_AREA = (By.XPATH, '//textarea[@id="goals"]')
+    NAME_FIELD = (By.XPATH, "//input[@id='name']")
+    USERNAME_FIELD = (By.XPATH, "//input[@id='username']")
+    ADRESS_TEXT_AREA = (By.XPATH, "//ol/li/textarea[@id='adress-mailing']")
+    GOALS_TEXT_AREA = (By.XPATH, "//ol/li/textarea[@id='goals']")
     EDUCATION_LEVEL_SELECT = (By.XPATH, "//select[@id='education-level']")
-    GENDER_LEVEL_SELECT = (By.XPATH, "//li/div/select[@id='gender']")
-    YEAR_OF_BIRTH_SELECT = (By.XPATH, "//li/div/select[@id='yob']")
+    GENDER_LEVEL_SELECT = (By.XPATH, "//select[@id='gender']")
+    YEAR_OF_BIRTH_SELECT = (By.XPATH, "//select[@id='yob']")
+    TERMS_OF_SERVICE_CHECKBOX = (By.XPATH, "//input[@id='tos-yes']")
+    HONOR_CODE_CHECKBPOX = (By.XPATH, "//input[@id='honorcode-yes']")
+    SUBMIT_BUTTON = (By.XPATH, "//button[@id='submit']")

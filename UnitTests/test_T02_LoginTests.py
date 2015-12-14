@@ -32,7 +32,7 @@ class T02LoginTests(unittest.TestCase):
         login_page.get()
         login_page.email_element = 'vlad.belogorodskiy@gmail.com'
         login_page.password_element = 'test'
-        login_page.click_on_remember_button()
+        login_page.click_on_remember_me_checkbox()
         login_page.click_on_submit_button()
         self.wait.until(lambda driver: self.driver.current_url.encode('utf-8') == dashboard_page.url)
         assert (self.driver.current_url.encode('utf-8') == dashboard_page.url), "User is not able to log in with valid credentials"

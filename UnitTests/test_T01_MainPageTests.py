@@ -16,7 +16,7 @@ class T01_Main_Page_Tests(unittest.TestCase):
 
     def test_T01_01_Main_Page_Elements_Appearance(self):
         main_page = page.MainPage(self.driver)
-        main_page.get_main_page()
+        main_page.get()
         assert main_page.is_title_matches()
         self.wait.until(lambda driver: main_page.is_main_text_visible())
         assert main_page.is_main_text_visible()
@@ -29,12 +29,12 @@ class T01_Main_Page_Tests(unittest.TestCase):
 
     def test_T01_02_Headers_Menu_Elements_Appearance(self):
         main_page = page.MainPage(self.driver)
-        main_page.get_main_page()
+        main_page.get()
         assert main_page.is_main_menu_elements_visible()
 
     def test_T01_03_Static_Header_Menu_Elements_Appearance(self):
         main_page = page.MainPage(self.driver)
-        main_page.get_main_page()
+        main_page.get()
         self.driver.execute_script("window.scrollTo(0, 400)")
         assert main_page.is_main_menu_elements_visible()
 
