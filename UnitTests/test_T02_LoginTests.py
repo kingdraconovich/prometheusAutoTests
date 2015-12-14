@@ -6,7 +6,8 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium import webdriver
 from PabeObject import page
 
-class T02_LoginTests(unittest.TestCase):
+
+class T02LoginTests(unittest.TestCase):
 
     def setUp(self):
         self.driver = webdriver.Chrome()
@@ -38,7 +39,6 @@ class T02_LoginTests(unittest.TestCase):
 
     def test_T02_03_Not_Registered_Credentials_Test(self):
         login_page = page.LoginPage(self.driver)
-        dashboard_page = page.DashboardPage(self.driver)
         login_page.get()
         login_page.email_element = 'invalid_user@gmail.com'
         login_page.password_element = 'password'
@@ -49,7 +49,6 @@ class T02_LoginTests(unittest.TestCase):
 
     def test_T02_04_Invalid_Email_Format_Login_Test(self):
         login_page = page.LoginPage(self.driver)
-        dashboard_page = page.DashboardPage(self.driver)
         login_page.get()
         login_page.email_element = 'invalid_user'
         login_page.password_element = 'password'
@@ -60,17 +59,14 @@ class T02_LoginTests(unittest.TestCase):
 
     def test_T02_05_No_Credentials_Login_Test(self):
         login_page = page.LoginPage(self.driver)
-        dashboard_page = page.DashboardPage(self.driver)
         login_page.get()
         login_page.click_on_submit_button()
         time.sleep(1)
         assert (self.driver.current_url.encode('utf-8') == login_page.url), "User is logged without entering credentials"
         assert login_page.is_invalid_credentials_alert_visible()
 
-
     def tearDown(self):
         self.driver.quit()
-
 
     if __name__ == "__main__":
         unittest.main()
