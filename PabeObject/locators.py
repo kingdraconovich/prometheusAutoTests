@@ -52,5 +52,5 @@ class RegistrationPageLocators():
     GENDER_LEVEL_SELECT = (By.XPATH, "//select[@id='gender']")
     YEAR_OF_BIRTH_SELECT = (By.XPATH, "//select[@id='yob']")
     TERMS_OF_SERVICE_CHECKBOX = (By.XPATH, "//input[@id='tos-yes']")
-    HONOR_CODE_CHECKBPOX = (By.XPATH, "//input[@id='honorcode-yes']")
+    HONOR_CODE_CHECKBOX = (By.XPATH, "//input[@id='honorcode-yes']")
     SUBMIT_BUTTON = (By.XPATH, "//button[@id='submit']")

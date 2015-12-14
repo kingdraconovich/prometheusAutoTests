@@ -53,35 +53,35 @@ class MainPage(BasePage):
     def is_start_button_visible(self):
         return self.driver.find_element(*MainPageLocators.START_BUTTON).is_displayed()
 
-    def click_main_menu_entry(self):
+    def click_on_main_menu_entry(self):
         element = self.driver.find_element(*MainPageLocators.MAIN_MENU_ENTRY)
         element.click()
 
-    def click_courses_menu_entry(self):
+    def click_on_courses_menu_entry(self):
         element = self.driver.find_element(*MainPageLocators.COURSES_MENU_ENTRY)
         element.click()
 
-    def click_cycles_menu_entry(self):
+    def click_on_cycles_menu_entry(self):
         element = self.driver.find_element(*MainPageLocators.SPECS_MENU_ENTRY)
         element.click()
 
-    def click_about_menu_entry(self):
+    def click_on_about_menu_entry(self):
         element = self.driver.find_element(*MainPageLocators.ABOUT_MENU_ENTRY)
         element.click()
 
-    def click_media_menu_entry(self):
+    def click_on_media_menu_entry(self):
         element = self.driver.find_element(*MainPageLocators.MEDIA_MENU_ENTRY)
         element.click()
 
-    def click_blog_menu_entry(self):
+    def click_on_blog_menu_entry(self):
         element = self.driver.find_element(*MainPageLocators.BLOG_MENU_ENTRY)
         element.click()
 
-    def click_login_menu_entry(self):
+    def click_on_login_menu_entry(self):
         element = self.driver.find_element(*MainPageLocators.LOGIN_MENU_ENTRY)
         element.click()
 
-    def click_register_menu_entry(self):
+    def click_on_register_menu_entry(self):
         element = self.driver.find_element(*MainPageLocators.REGISTER_MENU_ENTRY)
         element.click()
 
@@ -134,8 +134,8 @@ class BirthYearlement(BaseSelectElement):
     locator = "//select[@id='yob']"
 
 
-class MailingAdressElement(BasePageElement):
-    locator = '//textarea[@id="adress-mailing"]'
+class MailingAddressElement(BasePageElement):
+    locator = '//textarea[@id="address-mailing"]'
 
 
 class GoalsArea(BasePageElement):
@@ -152,7 +152,7 @@ class RegistrationPage(BasePage):
     education_element = EducationElement()
     gender_element = GenderElement()
     birth_year_element = BirthYearlement()
-    mailing_adress_area = MailingAdressElement()
+    mailing_address_area = MailingAddressElement()
     goals_area = GoalsArea()
 
     def is_email_element_visible(self):
@@ -186,7 +186,7 @@ class RegistrationPage(BasePage):
         return self.driver.find_element(*RegistrationPageLocators.TERMS_OF_SERVICE_CHECKBOX).is_displayed()
 
     def is_honor_code_checkbox_visible(self):
-        return self.driver.find_element(*RegistrationPageLocators.HONOR_CODE_CHECKBPOX).is_displayed()
+        return self.driver.find_element(*RegistrationPageLocators.HONOR_CODE_CHECKBOX).is_displayed()
 
     def is_submit_button_visible(self):
         return self.driver.find_element(*RegistrationPageLocators.SUBMIT_BUTTON).is_displayed()
@@ -205,6 +205,15 @@ class RegistrationPage(BasePage):
         assert self.is_honor_code_checkbox_visible()
         assert self.is_submit_button_visible()
         return True
+
+    def click_on_terms_of_service_checkbox(self):
+        self.driver.find_element(*RegistrationPageLocators.TERMS_OF_SERVICE_CHECKBOX).click()
+
+    def click_on_honor_code_checkbox(self):
+        self.driver.find_element(*RegistrationPageLocators.HONOR_CODE_CHECKBOX).click()
+
+    def click_on_submit_button(self):
+        self.driver.find_element(*RegistrationPageLocators.SUBMIT_BUTTON).click()
 
 
 class DashboardPage(BasePage):

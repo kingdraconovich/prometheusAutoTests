@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import unittest
 
 import time
@@ -18,7 +19,7 @@ class T02LoginTests(unittest.TestCase):
         login_page = page.LoginPage(self.driver)
         main_page.get()
         main_page.is_main_menu_elements_visible()
-        main_page.click_login_menu_entry()
+        main_page.click_on_login_menu_entry()
         assert (login_page.url in self.driver.current_url.encode('utf-8'))
         assert login_page.is_email_field_visible()
         assert login_page.is_password_field_visible()
