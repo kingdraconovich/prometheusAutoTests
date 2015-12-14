@@ -18,6 +18,7 @@ class T01_Main_Page_Tests(unittest.TestCase):
         main_page = page.MainPage(self.driver)
         main_page.get_main_page()
         assert main_page.is_title_matches()
+        self.wait.until(lambda driver: main_page.is_main_text_visible())
         assert main_page.is_main_text_visible()
         self.wait.until(lambda driver: main_page.is_description_text_visible())
         assert main_page.is_description_text_visible()

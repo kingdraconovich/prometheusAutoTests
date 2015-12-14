@@ -38,4 +38,4 @@ class LoginPageLocators():
     EMAIL_FIELD = (By.XPATH, "//input[@id='email']")
     PASSWORD_FIELD = (By.XPATH, "//input[@id='password']")
     SUBMIT_BUTTON = (By.XPATH, "//button[@id='submit']")
-    ALERT_INVALID_USER = (By.XPATH, "//div[text()='Виникли помилки при вході. Можливо, невірний email або пароль.']")
+    ALERT_INVALID_USER = (By.XPATH, "//div[contains(@class, 'submission-error')]")
