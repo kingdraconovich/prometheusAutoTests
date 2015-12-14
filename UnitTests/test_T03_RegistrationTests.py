@@ -36,10 +36,13 @@ class T02LoginTests(unittest.TestCase):
         registration_page.goals_area = "I'ma little robot to test your site"
         registration_page.click_on_terms_of_service_checkbox()
         registration_page.click_on_honor_code_checkbox()
-        # registration_page.click_on_submit_button()
+        # uncomment this part to proceed with registration submission. Commented to prevent junk users cloning
+        '''
+        registration_page.click_on_submit_button()
         self.wait.until(lambda driver: self.driver.current_url.encode('utf-8') == dashboard_page.url)
         assert (self.driver.current_url.encode(
             'utf-8') == dashboard_page.url), "User is not able to register with valid credentials"
+        '''
 
     def tearDown(self):
         self.driver.quit()
