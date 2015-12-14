@@ -38,7 +38,7 @@ class LoginPageLocators():
     EMAIL_FIELD = (By.XPATH, "//input[@id='email']")
     PASSWORD_FIELD = (By.XPATH, "//input[@id='password']")
     SUBMIT_BUTTON = (By.XPATH, "//button[@id='submit']")
-    ALERT_INVALID_USER = (By.XPATH, "//div[contains(@class, 'submission-error')]")
+    ALERT_INVALID_LOGIN = (By.XPATH, "//div[contains(@class, 'submission-error')]")
 
 
 class RegistrationPageLocators():
@@ -54,3 +54,4 @@ class RegistrationPageLocators():
     TERMS_OF_SERVICE_CHECKBOX = (By.XPATH, "//input[@id='tos-yes']")
     HONOR_CODE_CHECKBOX = (By.XPATH, "//input[@id='honorcode-yes']")
     SUBMIT_BUTTON = (By.XPATH, "//button[@id='submit']")
+    ALERT_INVALID_REGISTRATION = (By.XPATH, "//div[contains(@class, 'submission-error')]")

@@ -111,7 +111,7 @@ class LoginPage(BasePage):
         self.driver.find_element(*LoginPageLocators.SUBMIT_BUTTON).click()
 
     def is_invalid_credentials_alert_visible(self):
-        return self.driver.find_element(*LoginPageLocators.ALERT_INVALID_USER).is_displayed()
+        return self.driver.find_element(*LoginPageLocators.ALERT_INVALID_LOGIN).is_displayed()
 
 
 class NameElement(BasePageElement):
@@ -214,6 +214,9 @@ class RegistrationPage(BasePage):
 
     def click_on_submit_button(self):
         self.driver.find_element(*RegistrationPageLocators.SUBMIT_BUTTON).click()
+
+    def is_invalid_credentials_alert_visible(self):
+        return self.driver.find_element(*RegistrationPageLocators.ALERT_INVALID_REGISTRATION).is_displayed()
 
 
 class DashboardPage(BasePage):
