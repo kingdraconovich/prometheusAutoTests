@@ -8,7 +8,6 @@ from PabeObject import page
 
 
 class T02LoginTests(unittest.TestCase):
-
     def setUp(self):
         self.driver = webdriver.Chrome()
         self.driver.maximize_window()
@@ -35,7 +34,8 @@ class T02LoginTests(unittest.TestCase):
         login_page.click_on_remember_me_checkbox()
         login_page.click_on_submit_button()
         self.wait.until(lambda driver: self.driver.current_url.encode('utf-8') == dashboard_page.url)
-        assert (self.driver.current_url.encode('utf-8') == dashboard_page.url), "User is not able to log in with valid credentials"
+        assert (self.driver.current_url.encode(
+            'utf-8') == dashboard_page.url), "User is not able to log in with valid credentials"
 
     def test_T02_03_Not_Registered_Credentials_Test(self):
         login_page = page.LoginPage(self.driver)
@@ -44,7 +44,8 @@ class T02LoginTests(unittest.TestCase):
         login_page.password_element = 'password'
         login_page.click_on_submit_button()
         time.sleep(1)
-        assert (self.driver.current_url.encode('utf-8') == login_page.url), "User is logged with not pre-registered credentials"
+        assert (
+        self.driver.current_url.encode('utf-8') == login_page.url), "User is logged with not pre-registered credentials"
         assert login_page.is_invalid_credentials_alert_visible()
 
     def test_T02_04_Invalid_Email_Format_Login_Test(self):
@@ -62,7 +63,8 @@ class T02LoginTests(unittest.TestCase):
         login_page.get()
         login_page.click_on_submit_button()
         time.sleep(1)
-        assert (self.driver.current_url.encode('utf-8') == login_page.url), "User is logged without entering credentials"
+        assert (
+        self.driver.current_url.encode('utf-8') == login_page.url), "User is logged without entering credentials"
         assert login_page.is_invalid_credentials_alert_visible()
 
     def tearDown(self):

@@ -38,7 +38,9 @@ class GuideBookTest(unittest.TestCase):
         wait = self.wait
         randomID = str(random.randint(1, 1000))
 
-        course_registration = Registration(driver, randomID, "test_email"+randomID+"@gmail.com", "test", "Test Test", "autoTester"+randomID, "Немає", "Інше", "1949", "some adress", "I'ma robot man")
+        course_registration = Registration(driver, randomID, "test_email" + randomID + "@gmail.com", "test",
+                                           "Test Test", "autoTester" + randomID, "Немає", "Інше", "1949", "some adress",
+                                           "I'ma robot man")
 
         course_registration.verify_and_register()
         course_registration.enter_email()
@@ -53,11 +55,10 @@ class GuideBookTest(unittest.TestCase):
         course_registration.check_honor_code_box()
         course_registration.check_terms_of_service_box()
 
-        #commented this strings in order to prevent cloning of test users
-        #course_registration.registration_submit()
-        #wait.until(lambda driver: driver.current_url == "http://courses.prometheus.org.ua/dashboard")
-        #assert driver.current_url.encode('utf-8') == "http://courses.prometheus.org.ua/dashboard"
-
+        # commented this strings in order to prevent cloning of test users
+        # course_registration.registration_submit()
+        # wait.until(lambda driver: driver.current_url == "http://courses.prometheus.org.ua/dashboard")
+        # assert driver.current_url.encode('utf-8') == "http://courses.prometheus.org.ua/dashboard"
 
     def test_searchAndBrowseCourses(self):
         # 2. User is able to login with email and/or username he registered, browse some courses to choose and attend
@@ -81,7 +82,7 @@ class GuideBookTest(unittest.TestCase):
         wait.until(lambda driver: driver.current_url == "http://courses.prometheus.org.ua/dashboard")
 
         # verification of key elements for dashboard menu
-        for i in range(0,9,1):
+        for i in range(0, 9, 1):
             Dashboard.verify_dashboard_elements(self, emailStr, usernameStr, nameStr, driver)
 
             # And let's explore couple of courses and decide what to learn
@@ -148,10 +149,8 @@ class GuideBookTest(unittest.TestCase):
 
         time.sleep(2)
 
-
     def tearDown(self):
         self.driver.quit()
-
 
     if __name__ == "__main__":
         unittest.main()

@@ -8,7 +8,6 @@ from PabeObject import page
 
 
 class T02LoginTests(unittest.TestCase):
-
     def setUp(self):
         self.driver = webdriver.Chrome()
         self.driver.maximize_window()

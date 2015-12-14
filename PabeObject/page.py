@@ -22,7 +22,6 @@ class PasswordElement(BasePageElement):
 
 
 class MainPage(BasePage):
-
     url = "http://prometheus.org.ua"
 
     def is_title_matches(self):
@@ -88,7 +87,6 @@ class MainPage(BasePage):
 
 
 class LoginPage(BasePage):
-
     url = "http://courses.prometheus.org.ua/login"
 
     email_element = EmailElement()

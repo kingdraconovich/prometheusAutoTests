@@ -22,15 +22,16 @@ def verify_courses_elements(self, driver):
 
 # method to attend a random course
 def get_random_course_button(self, driver):
-    self.wait.until(lambda driver: driver.current_url.encode('utf-8') == "http://prometheus.org.ua/courses/".encode('utf-8'))
-    coursesList = driver.find_elements_by_xpath("//div/a[(contains(@href, 'http://courses.') or  contains(@href, 'http://edx.')) and  (contains(@target, 'blank'))]")
-    randomCourseButton = coursesList[random.randint(0, (len(coursesList)-1))]
+    self.wait.until(
+        lambda driver: driver.current_url.encode('utf-8') == "http://prometheus.org.ua/courses/".encode('utf-8'))
+    coursesList = driver.find_elements_by_xpath(
+        "//div/a[(contains(@href, 'http://courses.') or  contains(@href, 'http://edx.')) and  (contains(@target, 'blank'))]")
+    randomCourseButton = coursesList[random.randint(0, (len(coursesList) - 1))]
     return randomCourseButton
 
 
 # method for course submission
 def submit_course(self, driver):
-
     coursesDashboardUrl = "http://courses.prometheus.org.ua/dashboard"
 
     self.wait.until(lambda driver: driver.find_element_by_xpath("//a[contains(@class, 'register')]"))
