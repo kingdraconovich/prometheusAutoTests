@@ -45,7 +45,8 @@ class T02LoginTests(unittest.TestCase):
         login_page.click_on_submit_button()
         time.sleep(1)
         assert (
-        self.driver.current_url.encode('utf-8') == login_page.url), "User is logged with not pre-registered credentials"
+            self.driver.current_url.encode(
+                'utf-8') == login_page.url), "User is logged with not pre-registered credentials"
         assert login_page.is_invalid_credentials_alert_visible()
 
     def test_T02_04_Invalid_Email_Format_Login_Test(self):
@@ -64,7 +65,7 @@ class T02LoginTests(unittest.TestCase):
         login_page.click_on_submit_button()
         time.sleep(1)
         assert (
-        self.driver.current_url.encode('utf-8') == login_page.url), "User is logged without entering credentials"
+            self.driver.current_url.encode('utf-8') == login_page.url), "User is logged without entering credentials"
         assert login_page.is_invalid_credentials_alert_visible()
 
     def tearDown(self):
