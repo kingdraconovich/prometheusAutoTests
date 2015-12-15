@@ -218,6 +218,12 @@ class RegistrationPage(BasePage):
     def is_invalid_credentials_alert_visible(self):
         return self.driver.find_element(*RegistrationPageLocators.ALERT_INVALID_REGISTRATION).is_displayed()
 
+    def click_on_snippet_login_button(self):
+        self.driver.find_element(*RegistrationPageLocators.SNIPPET_LOGIN_BUTTON).click()
+
+    def click_on_header_login_button(self):
+        self.driver.find_element(*RegistrationPageLocators.HEADER_LOGIN_BUTTON).click()
+
 
 class DashboardPage(BasePage):
     url = "http://courses.prometheus.org.ua/dashboard"

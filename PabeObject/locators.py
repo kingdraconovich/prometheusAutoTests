@@ -55,3 +55,5 @@ class RegistrationPageLocators():
     HONOR_CODE_CHECKBOX = (By.XPATH, "//input[@id='honorcode-yes']")
     SUBMIT_BUTTON = (By.XPATH, "//button[@id='submit']")
     ALERT_INVALID_REGISTRATION = (By.XPATH, "//div[contains(@class, 'submission-error')]")
+    SNIPPET_LOGIN_BUTTON = (By.XPATH, "//p/a[contains(@class, 'login')]")
+    HEADER_LOGIN_BUTTON = (By.XPATH, "//li/a[contains(@class, 'login')]")

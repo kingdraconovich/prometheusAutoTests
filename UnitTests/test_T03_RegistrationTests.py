@@ -210,6 +210,24 @@ class T03RegistrationTests(unittest.TestCase):
         assert (self.driver.current_url.encode(
             'utf-8') != dashboard_page.url), "User is able to register without submitting both checkboxes"
 
+    def test_T03_12_Proceed_With_Snippet_Login_Button_On_Registration_Page(self):
+        registration_page = page.RegistrationPage(self.driver)
+        login_page = page.LoginPage(self.driver)
+        registration_page.get()
+        registration_page.click_on_snippet_login_button()
+        self.wait.until(lambda driver: self.driver.current_url.encode('utf-8') == login_page.url)
+        assert (self.driver.current_url.encode(
+            'utf-8') == login_page.url), "User is not able to proceed to login via snippet login button"
+
+    def test_T03_13_Proceed_With_Header_Login_Button_On_Registration_Page(self):
+        registration_page = page.RegistrationPage(self.driver)
+        login_page = page.LoginPage(self.driver)
+        registration_page.get()
+        registration_page.click_on_header_login_button()
+        self.wait.until(lambda driver: self.driver.current_url.encode('utf-8') == login_page.url)
+        assert (self.driver.current_url.encode(
+            'utf-8') == login_page.url), "User is not able to proceed to login via header login button"
+
 
 
     def tearDown(self):
