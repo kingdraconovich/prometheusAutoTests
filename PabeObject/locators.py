@@ -65,3 +65,6 @@ class BlogPageLocators():
     SUBMIT_SEARCH_BUTTON = (By.XPATH, "//input[@id='searchsubmit']")
     ARTICLE = (By.XPATH, "//article")
     VK_WIDGET = (By.XPATH, "//div[@id='vk_groups']")
+    FACEBOOK_WIDGET = (
+    By.XPATH, "//*[@id='text-2']/div[2]/iframe[1]")  # this is an automatically generated Xpath. Might be unstable
+    TWITTER_WIDGET = (By.XPATH, "//iframe[@id='twitter-widget-0']")
