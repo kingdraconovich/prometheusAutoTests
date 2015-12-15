@@ -57,3 +57,11 @@ class RegistrationPageLocators():
     ALERT_INVALID_REGISTRATION = (By.XPATH, "//div[contains(@class, 'submission-error')]")
     SNIPPET_LOGIN_BUTTON = (By.XPATH, "//p/a[contains(@class, 'login')]")
     HEADER_LOGIN_BUTTON = (By.XPATH, "//li/a[contains(@class, 'login')]")
+
+
+class BlogPageLocators():
+    HEADER_TEXT_BLOCK = (By.XPATH, "//h1[text()='Блог']")
+    SEARCH_FIELD = (By.XPATH, "//input[@id='s']")
+    SUBMIT_SEARCH_BUTTON = (By.XPATH, "//input[@id='searchsubmit']")
+    ARTICLE = (By.XPATH, "//article")
+    VK_WIDGET = (By.XPATH, "//div[@id='vk_groups']")

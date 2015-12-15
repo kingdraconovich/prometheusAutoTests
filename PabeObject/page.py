@@ -227,3 +227,7 @@ class RegistrationPage(BasePage):
 
 class DashboardPage(BasePage):
     url = "http://courses.prometheus.org.ua/dashboard"
+
+
+class BlogPage(BasePage):
+    url = "http://prometheus.org.ua/blog"
