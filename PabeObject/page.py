@@ -229,29 +229,58 @@ class DashboardPage(BasePage):
     url = "http://courses.prometheus.org.ua/dashboard"
 
 
+class Searchelement(BasePageElement):
+    locator = "//input[@id='s']"
+
+
 class BlogPage(BasePage):
     url = "http://prometheus.org.ua/blog"
+    search_element = Searchelement()
 
     def is_header_text_visible(self):
-        return self.driver.find_element(*BlogPageLocators.HEADER_TEXT_BLOCK)
+        return self.driver.find_element(*BlogPageLocators.HEADER_TEXT_BLOCK).is_displayed()
 
     def is_search_field_visible(self):
-        return self.driver.find_element(*BlogPageLocators.SEARCH_FIELD)
+        return self.driver.find_element(*BlogPageLocators.SEARCH_FIELD).is_displayed()
 
     def is_submit_search_button_visible(self):
-        return self.driver.find_element(*BlogPageLocators.SUBMIT_SEARCH_BUTTON)
+        return self.driver.find_element(*BlogPageLocators.SUBMIT_SEARCH_BUTTON).is_displayed()
 
     def is_articles_visible(self):
-        return self.driver.find_elements(*BlogPageLocators.ARTICLE)
+        return self.driver.find_elements(*BlogPageLocators.ARTICLE).is_displayed()
 
     def is_vk_widget_visible(self):
-        return self.driver.find_element(*BlogPageLocators.VK_WIDGET)
+        return self.driver.find_element(*BlogPageLocators.VK_WIDGET).is_displayed()
 
     def is_facebook_widget_visible(self):
-        return self.driver.find_element(*BlogPageLocators.FACEBOOK_WIDGET)
+        return self.driver.find_element(*BlogPageLocators.FACEBOOK_WIDGET).is_displayed()
 
     def is_twitter_widget_visible(self):
-        return self.driver.find_element(*BlogPageLocators.TWITTER_WIDGET)
+        return self.driver.find_element(*BlogPageLocators.TWITTER_WIDGET).is_displayed()
 
     def is_tag_cloud_visible(self):
-        return self.driver.find_element(*BlogPageLocators.TAG_CLOUD)
+        return self.driver.find_element(*BlogPageLocators.TAG_CLOUD).is_displayed()
+
+    def is_current_page_number_visible(self):
+        return self.driver.find_element(*BlogPageLocators.CURRENT_PAGE_NUMBER).is_displayed()
+
+    def is_next_page_entry_visible(self):
+        return self.driver.find_element(*BlogPageLocators.NEXT_PAGE_ENTRY).is_displayed()
+
+    def is_previous_page_entry_visible(self):
+        return self.driver.find_element(*BlogPageLocators.PREVIOUS_PAGE_ENTRY).is_displayed()
+
+    def is_blog_page_elements_visible(self):
+        assert self.is_header_text_visible()
+        assert self.is_search_field_visible()
+        assert self.is_submit_search_button_visible()
+        assert self.is_articles_visible()
+        assert self.is_vk_widget_visible()
+        assert self.is_facebook_widget_visible()
+        assert self.is_twitter_widget_visible()
+        assert self.is_tag_cloud_visible()
+        assert self.is_current_page_number_visible()
+        assert self.is_next_page_entry_visible()
+        if "/page/" in self.driver.current_url.encode('utf-8'):
+            assert self.is_previous_page_entry_visible(*BlogPageLocators.PREVIOUS_PAGE_ENTRY)
+        return True

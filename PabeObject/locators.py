@@ -69,6 +69,6 @@ class BlogPageLocators():
     By.XPATH, "//*[@id='text-2']/div[2]/iframe[1]")  # this is an automatically generated Xpath. Might be unstable
     TWITTER_WIDGET = (By.XPATH, "//iframe[@id='twitter-widget-0']")
     TAG_CLOUD = (By.XPATH, "//div[@id='tag_cloud-2']")
-    CURRENT_PAGE_NUMBER = (By.XPATH, "//span[contains(@class, 'page-numbers') and contains(@class, 'current')]")
-    NEXT_PAGE_NUMBER = (By.XPATH, "//a[contains(@class, 'page-numbers') and contains(@class, 'next')]")
-    PREVIOUS_PAGE_NUMBER = (By.XPATH, "//a[contains(@class, 'page-numbers') and contains(@class, 'prev')]")
+    CURRENT_PAGE_ENTRY = (By.XPATH, "//span[contains(@class, 'page-numbers') and contains(@class, 'current')]")
+    NEXT_PAGE_ENTRY = (By.XPATH, "//a[contains(@class, 'page-numbers') and contains(@class, 'next')]")
+    PREVIOUS_PAGE_ENTRY = (By.XPATH, "//a[contains(@class, 'page-numbers') and contains(@class, 'prev')]")
