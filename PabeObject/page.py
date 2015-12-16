@@ -295,7 +295,11 @@ class BlogPage(BasePage):
         self.driver.find_element(*BlogPageLocators.NEXT_PAGE_ENTRY).click()
 
     def is_search_results_visible(self):
-        for element in self.driver.find_elements(*BlogPageLocators.SEARCH_RESULT):
+        elements = self.driver.find_elements(*BlogPageLocators.SEARCH_RESULT)
+        for element in elements:
             if element.is_displayed():
                 pass
-        return True
+        if len(elements) == 0:
+            return False
+        else:
+            return True
