@@ -25,10 +25,11 @@ class T04_Blog_Page_Tests(unittest.TestCase):
         blog_page.get()
         assert blog_page.is_search_field_visible()
         assert blog_page.is_submit_search_button_visible()
-        blog_page.search_element = "prometheus"
+        search_string = "prometheus"
+        blog_page.search_element = search_string
         blog_page.click_on_submit_search_button()
         time.sleep(0.6)
-        assert blog_page.is_url_contains_search_query() #crashes right here
+        assert search_string in self.driver.current_url.encode('utf-8')
         assert blog_page.is_search_results_visible()
 
     def tearDown(self):

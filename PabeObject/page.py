@@ -294,8 +294,8 @@ class BlogPage(BasePage):
     def click_on_next_page_entry_button(self):
         self.driver.find_element(*BlogPageLocators.NEXT_PAGE_ENTRY).click()
 
-    def is_url_contains_search_query(self):
-        return self.search_element in self.driver.current_url #this is not working. To fix.
+        # def is_url_contains_search_query(self):
+        # return self.search_element in self.driver.current_url #this is not working. To fix.
 
     def is_search_results_visible(self):
         for element in self.driver.find_elements(*BlogPageLocators.SEARCH_RESULT):
