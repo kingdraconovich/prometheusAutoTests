@@ -296,10 +296,26 @@ class BlogPage(BasePage):
 
     def is_search_results_visible(self):
         elements = self.driver.find_elements(*BlogPageLocators.SEARCH_RESULT)
+        if len(elements) == 0:
+            return False
         for element in elements:
             if element.is_displayed():
                 pass
-        if len(elements) == 0:
-            return False
-        else:
-            return True
+        return True
+
+    def is_not_found_block_visible(self):
+        return self.driver.find_element(*BlogPageLocators.NOT_FOUND_BLOCK).is_displayed()
+
+    def is_not_found_icon_visible(self):
+        return self.driver.find_element(*BlogPageLocators.NOT_FOUND_ICON).is_displayed()
+
+    def is_not_found_caption_visible(self):
+        return self.driver.find_element(*BlogPageLocators.NOT_FOUND_CAPTION).is_displayed()
+
+    def is_not_found_block_elements_visible(self):
+        assert self.is_not_found_block_visible()
+        assert self.is_not_found_icon_visible()
+        assert self.is_not_found_caption_visible()
+        assert self.is_search_field_visible()
+        assert self.is_submit_search_button_visible()
+        return True

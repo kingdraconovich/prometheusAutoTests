@@ -73,3 +73,6 @@ class BlogPageLocators():
     NEXT_PAGE_ENTRY = (By.XPATH, "//a[contains(@class, 'page-numbers') and contains(@class, 'next')]")
     PREVIOUS_PAGE_ENTRY = (By.XPATH, "//a[contains(@class, 'page-numbers') and contains(@class, 'prev')]")
     SEARCH_RESULT = (By.XPATH, "//div[@class='gdlr-standard-style']")
+    NOT_FOUND_BLOCK = (By.XPATH, "//div[@class='page-not-found-block']")
+    NOT_FOUND_ICON = (By.XPATH, "//div/i[@class='icon-frown']")
+    NOT_FOUND_CAPTION = (By.XPATH, "//div[@class='page-not-found-caption']")
