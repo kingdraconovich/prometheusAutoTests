@@ -231,3 +231,27 @@ class DashboardPage(BasePage):
 
 class BlogPage(BasePage):
     url = "http://prometheus.org.ua/blog"
+
+    def is_header_text_visible(self):
+        return self.driver.find_element(*BlogPageLocators.HEADER_TEXT_BLOCK)
+
+    def is_search_field_visible(self):
+        return self.driver.find_element(*BlogPageLocators.SEARCH_FIELD)
+
+    def is_submit_search_button_visible(self):
+        return self.driver.find_element(*BlogPageLocators.SUBMIT_SEARCH_BUTTON)
+
+    def is_articles_visible(self):
+        return self.driver.find_elements(*BlogPageLocators.ARTICLE)
+
+    def is_vk_widget_visible(self):
+        return self.driver.find_element(*BlogPageLocators.VK_WIDGET)
+
+    def is_facebook_widget_visible(self):
+        return self.driver.find_element(*BlogPageLocators.FACEBOOK_WIDGET)
+
+    def is_twitter_widget_visible(self):
+        return self.driver.find_element(*BlogPageLocators.TWITTER_WIDGET)
+
+    def is_tag_cloud_visible(self):
+        return self.driver.find_element(*BlogPageLocators.TAG_CLOUD)
