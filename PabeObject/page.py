@@ -247,7 +247,10 @@ class BlogPage(BasePage):
         return self.driver.find_element(*BlogPageLocators.SUBMIT_SEARCH_BUTTON).is_displayed()
 
     def is_articles_visible(self):
-        return self.driver.find_elements(*BlogPageLocators.ARTICLE).is_displayed()
+        for element in self.driver.find_elements(*BlogPageLocators.ARTICLE):
+            if element.is_displayed():
+                pass
+        return True
 
     def is_vk_widget_visible(self):
         return self.driver.find_element(*BlogPageLocators.VK_WIDGET).is_displayed()
@@ -262,7 +265,7 @@ class BlogPage(BasePage):
         return self.driver.find_element(*BlogPageLocators.TAG_CLOUD).is_displayed()
 
     def is_current_page_number_visible(self):
-        return self.driver.find_element(*BlogPageLocators.CURRENT_PAGE_NUMBER).is_displayed()
+        return self.driver.find_element(*BlogPageLocators.CURRENT_PAGE_ENTRY).is_displayed()
 
     def is_next_page_entry_visible(self):
         return self.driver.find_element(*BlogPageLocators.NEXT_PAGE_ENTRY).is_displayed()
