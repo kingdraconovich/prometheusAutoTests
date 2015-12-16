@@ -1,3 +1,5 @@
+import time
+
 __author__ = 'vbilohorodskyi'
 
 import unittest
@@ -17,6 +19,17 @@ class T04_Blog_Page_Tests(unittest.TestCase):
         blog_page = page.BlogPage(self.driver)
         blog_page.get()
         assert blog_page.is_blog_page_elements_visible(), "Not all of the main blog page elements is visible"
+
+    def test_T04_02_Search_For_Articles(self):
+        blog_page = page.BlogPage(self.driver)
+        blog_page.get()
+        assert blog_page.is_search_field_visible()
+        assert blog_page.is_submit_search_button_visible()
+        blog_page.search_element = "prometheus"
+        blog_page.click_on_submit_search_button()
+        time.sleep(0.6)
+        assert blog_page.is_url_contains_search_query() #crashes right here
+        assert blog_page.is_search_results_visible()
 
     def tearDown(self):
         self.driver.quit()

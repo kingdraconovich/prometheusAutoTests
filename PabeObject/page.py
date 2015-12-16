@@ -229,13 +229,13 @@ class DashboardPage(BasePage):
     url = "http://courses.prometheus.org.ua/dashboard"
 
 
-class Searchelement(BasePageElement):
+class SearchElement(BasePageElement):
     locator = "//input[@id='s']"
 
 
 class BlogPage(BasePage):
     url = "http://prometheus.org.ua/blog"
-    search_element = Searchelement()
+    search_element = SearchElement()
 
     def is_header_text_visible(self):
         return self.driver.find_element(*BlogPageLocators.HEADER_TEXT_BLOCK).is_displayed()
@@ -286,4 +286,19 @@ class BlogPage(BasePage):
         assert self.is_next_page_entry_visible()
         if "/page/" in self.driver.current_url.encode('utf-8'):
             assert self.is_previous_page_entry_visible(*BlogPageLocators.PREVIOUS_PAGE_ENTRY)
+        return True
+
+    def click_on_submit_search_button(self):
+        self.driver.find_element(*BlogPageLocators.SUBMIT_SEARCH_BUTTON).click()
+
+    def click_on_next_page_entry_button(self):
+        self.driver.find_element(*BlogPageLocators.NEXT_PAGE_ENTRY).click()
+
+    def is_url_contains_search_query(self):
+        return self.search_element in self.driver.current_url #this is not working. To fix.
+
+    def is_search_results_visible(self):
+        for element in self.driver.find_elements(*BlogPageLocators.SEARCH_RESULT):
+            if element.is_displayed():
+                pass
         return True

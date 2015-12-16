@@ -72,3 +72,4 @@ class BlogPageLocators():
     CURRENT_PAGE_ENTRY = (By.XPATH, "//span[contains(@class, 'page-numbers') and contains(@class, 'current')]")
     NEXT_PAGE_ENTRY = (By.XPATH, "//a[contains(@class, 'page-numbers') and contains(@class, 'next')]")
     PREVIOUS_PAGE_ENTRY = (By.XPATH, "//a[contains(@class, 'page-numbers') and contains(@class, 'prev')]")
+    SEARCH_RESULT = (By.XPATH, "//div[@class='gdlr-standard-style']")
